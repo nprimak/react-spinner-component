@@ -4,13 +4,25 @@
 
 .App-logo {
   height: 40vmin;
+  width: 10vw;
+  border: 10px solid lightgray;
+  border-radius: 10vw;
+  background-color: transparent;
   pointer-events: none;
+  animation: App-logo-spin infinite 20s linear;
+  position: relative;
+  display: block;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App-logo:after {
+  content:"";
+  position: absolute;
+  height: 50%;
+  width: 100%;
+  border-radius: 100%;
+  border: 10px solid lightskyblue;
+  background-color: transparent;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
 }
 
 .App-header {
