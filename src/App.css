@@ -1,47 +1,53 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  height: 150px;
-  width: 150px;
-  border: 10px solid lightgray;
-  border-radius: 150px;
-  background-color: transparent;
-  pointer-events: none;
-  animation: App-logo-spin infinite 20s linear;
+.circle {
   position: relative;
-  display: block;
 }
 
-.App-logo:after {
-  content: "";
+.circle__svg {
+  animation: spin infinite 20s linear;
+}
+
+.circle__progress {
+  fill: none;
+  stroke-width: 3;
+  stroke-opacity: 0.3;
+  stroke-linecap: round;
+  stroke: lightgray;
+  
+}
+
+/*  dasharray and dashoffset is circumference - (progress-fill radius * Math.PI * 2) */
+.circle__progress--fill {
+  stroke-opacity: 1;
+  stroke-dasharray: 238.76104167282426;
+  stroke-dashoffset: 238.76104167282426;
+  stroke: lightskyblue; 
+  transition: stroke-dashoffset 900ms ease;
+}
+
+.percent {
+  width: 100%;
+  top: 50%;
+  left: 50%;
   position: absolute;
-  height: 150px;
-  width: 150px;
-  border-radius: 150px;
-  border: 10px solid blue;
-  clip-path: polygon(0% 0%, 100% 200%, 0% 100%);
-  transform: translate(-85px, -10px);
-  clip-path: polygon(0% 0, 100% 100%, 0, 100%);
+  font-weight: bold;
+  text-align: center;
+  line-height: 28px;
+  transform: translate(-50%, -50%);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.percent__int { font-size: 28px; }
+
+.label {
+  font-family: 'Raleway', serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-top: 15px;
 }
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
+
+@keyframes spin {
   from {
     transform: rotate(0deg);
   }
