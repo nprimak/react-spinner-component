@@ -1,21 +1,34 @@
 import { mount } from '@cypress/react' 
 import Spinner from './Spinner'
 
+const transferAmountPerSecond = 30;
+const fileSize = 1000;
+
 describe('Spinner', () => {
-  it('Spinner with pauseSpinner=true should render correctly', () => {
-    mount(<Spinner pauseSpinner={true} fileSize={1000} />)
+  it('should render correctly if it is paused', () => {
+    mount(<Spinner pauseSpinner={true} fileSize={fileSize} transferAmountPerSecond={transferAmountPerSecond} />)
     cy.get('[data-cy=spinner-svg]').should('be.visible').and('have.css', 'animation-play-state', 'paused')
     cy.get('[data-cy=label]').should('have.text', 'Paused')
     cy.get('[data-cy=percent-transfer]').should('have.text', '0%')
     cy.get('[data-cy=progress-fill]').should('have.css', 'stroke-dashoffset', '245px')
   })
 
-  it('Spinner with pauseSpinner=false should render correctly', () => {
-    mount(<Spinner pauseSpinner={false} fileSize={1000} />)
+  it('should render correctly if it is not paused', () => {
+    mount(<Spinner pauseSpinner={false} fileSize={fileSize} transferAmountPerSecond={transferAmountPerSecond} />)
     cy.get('[data-cy=spinner-svg]').should('be.visible').and('have.css', 'animation-play-state', 'running')
     cy.get('[data-cy=label]').should('have.text', 'Transferring')
     cy.get('[data-cy=percent-transfer]').should('not.have.text', '0%')
-    cy.get('[data-cy=progress-fill]').should('not.have.css', 'stroke-dashoffset', '245px')
+    cy.get('[data-cy=progress-fill]').should('not.have.css', 'stroke-dashoffset', '245px') 
   })
+
+
+  it("should display correct percentage", () => {
+    cy.clock()
+    mount(<Spinner pauseSpinner={false} fileSize={fileSize} transferAmountPerSecond={transferAmountPerSecond} />)
+    cy.tick(5000)
+    // there is a discrepancy between Cypress time and setInterval, hence multipling by 3 instead of 5
+    const percentageDownloaded = Math.floor(((transferAmountPerSecond * 3)/fileSize) * 100)
+    cy.get('[data-cy=percent-transfer]').should('include.text', percentageDownloaded)
+  }) 
 
 })

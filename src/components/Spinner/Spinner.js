@@ -1,7 +1,7 @@
 import './Spinner.css';
 import { useRef, useEffect, useState } from 'react';
 
-function Spinner({fileSize, pauseSpinner}) {
+function Spinner({fileSize, pauseSpinner, transferAmountPerSecond}) {
 
   const [downloadAmount, setDownloadAmount] = useState(0);
   const [circumference, setCircumference] = useState(0);
@@ -10,7 +10,7 @@ function Spinner({fileSize, pauseSpinner}) {
   const circleRef = useRef();
 
   useEffect(() => {
-    const radius = progressFillRef.current.r.baseVal.value || progressFillRef.current.r.baseValue.value;
+    const radius = progressFillRef.current.r.baseVal.value;
     setCircumference(radius * Math.PI * 2);
   }, [])
 
@@ -30,9 +30,8 @@ function Spinner({fileSize, pauseSpinner}) {
   }, [downloadAmount, pauseSpinner]);
 
   function simulateFileTransfer() {
-    const downloadAmountToAdd = Math.floor(Math.random() * 20);
-    if((downloadAmount + downloadAmountToAdd) < fileSize) {
-      setDownloadAmount(downloadAmount + downloadAmountToAdd);
+    if((downloadAmount + transferAmountPerSecond) < fileSize) {
+      setDownloadAmount(downloadAmount + transferAmountPerSecond);
       if(calculateStrokeDashOffset() !== 0) {
         //conditional needed to avoid bug on load - see line 43
         progressFillRef.current.style.strokeDashoffset = calculateStrokeDashOffset();
