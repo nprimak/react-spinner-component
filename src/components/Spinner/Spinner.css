@@ -26,7 +26,7 @@
   stroke-linecap:round;
   stroke-dashoffset: 245;
   stroke: lightskyblue; 
-  transition: stroke-dashoffset 100ms ease;
+  transition: stroke-dashoffset 500ms ease;
 }
 
 .percent {
