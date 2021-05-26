@@ -10,6 +10,12 @@ There are two components in the project: `App` and `Spinner`
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Design Decisions
+
+Originally the file transfer was mocked with an element of randomization rather than using a static `transferAmountPerSecond`. This created a smoother and more realistic loading animation but also made it extremely difficult to test whether the percentage was displaying the right amount. 
+
+I encountered a strange issue with using a ternary operator for updating strokeDashOffset on line 38 of the `Spinner` component (ie. it would not work) - in order to get around this while avoiding a bulky function I extracted the calculation from strokeDashOffset into a separate function.  
+
 ## Available Scripts
 
 In the project directory, you can run:
