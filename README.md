@@ -1,4 +1,12 @@
-# Getting Started with Create React App
+# Getting Started with React Spinner Component
+
+There are two components in the project: `App` and `Spinner`
+
+`App` is just to demonstrate usage of `Spinner` and how you can add buttons to control pausing and unpausing the spinner. 
+
+`Spinner` is a functional component which accepts 3 props: `pauseSpinner`, `fileSize`, `transferAmountPerSecond`. File transfer/download is mocked out inside a setInterval function and uses `transferAmountPerSecond` and `fileSize` to update and calculate amount transferred/downloaded. `pauseSpinner` is a boolean used to control pausing of animation (see `App` for example). 
+
+`Spinner` also uses svg elements and css animations. It updates the stroke-dashoffset property every second in order to increase the length of the bar as it rotates around the circle. Inspiration taken from technique used here: [https://www.smashingmagazine.com/2019/01/html5-svg-fill-animation-css3-vanilla-javascript/](https://www.smashingmagazine.com/2019/01/html5-svg-fill-animation-css3-vanilla-javascript/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -16,8 +24,11 @@ You will also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches Cypress component tests.
+
+Note that Cypress itself is not installed via npm but npx. Make sure it has properly installed before running this command (see [https://docs.cypress.io/guides/getting-started/installing-cypress#Opening-Cypress](https://docs.cypress.io/guides/getting-started/installing-cypress#Opening-Cypress)).
+
+Also note that Cypress component testing is still in Alpha stage (as of 05/26/2021), sometimes you may get strange errors in the terminal while running component tests which you can disregard - tests should still run. (see [https://docs.cypress.io/guides/component-testing/introduction](https://docs.cypress.io/guides/component-testing/introduction))
 
 ### `npm run build`
 
@@ -25,46 +36,6 @@ Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
