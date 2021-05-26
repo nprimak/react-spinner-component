@@ -10,7 +10,7 @@ function Spinner({fileSize, pauseSpinner}) {
   const circleRef = useRef();
 
   useEffect(() => {
-    const radius = progressFillRef.current.r.baseVal.value;
+    const radius = progressFillRef.current.r.baseVal.value || progressFillRef.current.r.baseValue.value;
     setCircumference(radius * Math.PI * 2);
   }, [])
 
@@ -51,21 +51,21 @@ function Spinner({fileSize, pauseSpinner}) {
   return (
       <div className="spinner">
         <div className="circle">
-          <svg width="84" height="84" className="circle__animate" ref={circleRef}>
+          <svg data-cy="spinner-svg" width="84" height="84" className="circle__animate" ref={circleRef}>
             <circle cx="41" cy="41" r="39" className="circle__progress circle__progress--path"></circle>
-            <circle ref={progressFillRef}  cx="41" cy="41" r="39" className="circle__progress circle__progress--fill"></circle>
+            <circle data-cy="progress-fill" ref={progressFillRef}  cx="41" cy="41" r="39" className="circle__progress circle__progress--fill"></circle>
           </svg>
 
           <div className="percent">
-            <span className="percent__int">{Math.floor((downloadAmount/fileSize) * 100)}%</span>
+            <span data-cy="percent-transfer" className="percent__int">{Math.floor((downloadAmount/fileSize) * 100)}%</span>
           </div>
         </div>
 
         {pauseSpinner ? 
           
-          <span className="label">Paused</span> :
+          <span className="label" data-cy="label">Paused</span> :
         
-          <span className="label">{(downloadAmount/fileSize) < 1 ? "Downloading" : "Download Complete"}</span>
+          <span className="label" data-cy="label">{(downloadAmount/fileSize) < 1 ? "Transferring" : "Transfer Complete"}</span>
    
         }   
         

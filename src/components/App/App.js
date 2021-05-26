@@ -4,7 +4,7 @@ import {useState} from 'react';
 
 function App() {
   const [pauseSpinner, setPauseSpinner] = useState(true);
-  const fileSize = 1000; //change this int to adjust how long the simulated download takes  
+  const fileSize = 1000; //change this int to adjust how long the simulated transfer takes  
 
   return (
     <div className="App">
