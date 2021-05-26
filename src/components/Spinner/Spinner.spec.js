@@ -25,9 +25,10 @@ describe('Spinner', () => {
   it("should display correct percentage", () => {
     cy.clock()
     mount(<Spinner pauseSpinner={false} fileSize={fileSize} transferAmountPerSecond={transferAmountPerSecond} />)
-    cy.tick(5000)
-    // there is a discrepancy between Cypress time and setInterval, hence multipling by 3 instead of 5
-    const percentageDownloaded = Math.floor(((transferAmountPerSecond * 3)/fileSize) * 100)
+    cy.tick(1000 * 5)
+    // buffer time needed to account for extra time for DOM updates 
+    const bufferTimeMultiplier = 2;
+    const percentageDownloaded = Math.floor(((transferAmountPerSecond * (5-bufferTimeMultiplier)/fileSize) * 100))
     cy.get('[data-cy=percent-transfer]').should('include.text', percentageDownloaded)
   }) 
 

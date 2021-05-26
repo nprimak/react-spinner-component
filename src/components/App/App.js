@@ -4,7 +4,7 @@ import {useState} from 'react';
 
 function App() {
   const [pauseSpinner, setPauseSpinner] = useState(true);
-  const fileSize = 1000; //change this int to simulate transfer of larger files
+  const fileSize = 1000; //change this int to simulate different file size transfer
   const transferAmountPerSecond = 20 //change this int to simuluate faster transfer speed
 
   return (

@@ -1,5 +1,6 @@
 import './Spinner.css';
 import { useRef, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 function Spinner({fileSize, pauseSpinner, transferAmountPerSecond}) {
 
@@ -44,7 +45,7 @@ function Spinner({fileSize, pauseSpinner, transferAmountPerSecond}) {
   }
 
   function calculateStrokeDashOffset() {
-    return circumference - (circumference * (downloadAmount/fileSize));
+    return Math.ceil(circumference - (circumference * (downloadAmount/fileSize)));
   }
 
   return (
@@ -71,5 +72,17 @@ function Spinner({fileSize, pauseSpinner, transferAmountPerSecond}) {
         </div>
   );
 };
+
+Spinner.defaultProps = {
+  fileSize: 1000,
+  pauseSpinner: true,
+  transferAmountPerSecond: 20
+}
+
+Spinner.propTypes = {
+  fileSize: PropTypes.number,
+  pauseSpinner: PropTypes.bool,
+  transferAmountPerSecond: PropTypes.number
+}
 
 export default Spinner;
