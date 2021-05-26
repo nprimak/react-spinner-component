@@ -12,18 +12,19 @@
 
 .circle__progress {
   fill: none;
-  stroke-width: 3;
+  stroke-width: 4;
   stroke-opacity: 0.3;
   stroke-linecap: round;
   stroke: lightgray;
   
 }
 
-/*  dasharray and dashoffset is circumference - (progress-fill radius * Math.PI * 2) */
+/*  dasharray and dashoffset set to circumference - (progress-fill radius * Math.PI * 2) which makes loading spinner at 0 */
 .circle__progress--fill {
   stroke-opacity: 1;
-  stroke-dasharray: 238.76104167282426;
-  stroke-dashoffset: 238.76104167282426;
+  stroke-dasharray: 245;
+  stroke-linecap:round;
+  stroke-dashoffset: 245;
   stroke: lightskyblue; 
   transition: stroke-dashoffset 900ms ease;
 }
@@ -33,7 +34,7 @@
   top: 50%;
   left: 50%;
   position: absolute;
-  font-weight: bold;
+  font-weight: lighter;
   text-align: center;
   line-height: 28px;
   transform: translate(-50%, -50%);

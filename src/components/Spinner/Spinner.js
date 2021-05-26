@@ -1,52 +1,59 @@
 import './Spinner.css';
 import { useRef, useEffect, useState } from 'react';
 
-function Spinner(props) {
+function Spinner({fileSize, pauseSpinner}) {
 
   const [downloadAmount, setDownloadAmount] = useState(0);
   const [circumference, setCircumference] = useState(0);
 
-  const fileSize = 1000; //change this int to simulate file size and increase length of time to completion
   const progressFillRef = useRef();
   const circleRef = useRef();
 
   useEffect(() => {
-    if(!props.pauseSpinner && downloadAmount <= fileSize) {
-      const simulateFileDownload = setInterval(() => {
-        const downloadAmountToAdd = Math.floor(Math.random() * 20);
-        if((downloadAmount + downloadAmountToAdd) < fileSize) {
-          setDownloadAmount(downloadAmount + downloadAmountToAdd);
-        } else {
-          setDownloadAmount(fileSize);
-        }
-        // at stroke-dashffset = 0 the circle will be 100% filled
-        progressFillRef.current.style.strokeDashoffset = circumference - (circumference * (downloadAmount/fileSize)); 
-  
-      }, 1000);
-      return () => clearInterval(simulateFileDownload);
-    }
-  }, [downloadAmount, props]);
-
-  useEffect(() => {
     const radius = progressFillRef.current.r.baseVal.value;
-    setCircumference(radius * Math.PI * 2); // stroke-dashoffset = circumference means circle will be 0% filled 
+    setCircumference(radius * Math.PI * 2);
   }, [])
 
   useEffect(() => {
-    if(props.pauseSpinner) {
+    if(pauseSpinner) {
       circleRef.current.style.animationPlayState = "paused";
     } else {
       circleRef.current.style.animationPlayState = "running";
     }
-  }, [props]);
+  }, [pauseSpinner]);
 
+  useEffect(() => {
+    if(!pauseSpinner && downloadAmount <= fileSize) {
+      const simulateFileTransferInstance = setInterval(simulateFileTransfer.bind(), 1000)
+      return () => clearInterval(simulateFileTransferInstance);
+    }
+  }, [downloadAmount, pauseSpinner]);
+
+  function simulateFileTransfer() {
+    const downloadAmountToAdd = Math.floor(Math.random() * 20);
+    if((downloadAmount + downloadAmountToAdd) < fileSize) {
+      setDownloadAmount(downloadAmount + downloadAmountToAdd);
+      if(calculateStrokeDashOffset() !== 0) {
+        //conditional needed to avoid bug on load - see line 43
+        progressFillRef.current.style.strokeDashoffset = calculateStrokeDashOffset();
+      }
+  } else {
+      setDownloadAmount(fileSize);
+      // at stroke-dashoffset = 0 the circle will be 100% filled
+      progressFillRef.current.style.strokeDashoffset = 0;
+    } 
+  }
+
+  function calculateStrokeDashOffset() {
+    return circumference - (circumference * (downloadAmount/fileSize));
+  }
 
   return (
       <div className="spinner">
         <div className="circle">
           <svg width="84" height="84" className="circle__animate" ref={circleRef}>
-            <circle cx="41" cy="41" r="38" className="circle__progress circle__progress--path"></circle>
-            <circle ref={progressFillRef}  cx="41" cy="41" r="38" className="circle__progress circle__progress--fill"></circle>
+            <circle cx="41" cy="41" r="39" className="circle__progress circle__progress--path"></circle>
+            <circle ref={progressFillRef}  cx="41" cy="41" r="39" className="circle__progress circle__progress--fill"></circle>
           </svg>
 
           <div className="percent">
@@ -54,7 +61,7 @@ function Spinner(props) {
           </div>
         </div>
 
-        {props.pauseSpinner ? 
+        {pauseSpinner ? 
           
           <span className="label">Paused</span> :
         
